@@ -1,0 +1,13 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+#PriceFrom, #PriceTo {
+  width: 85%;
+  border-radius: 2px;
+}
+
+.filters {
+  border-right: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
+}
