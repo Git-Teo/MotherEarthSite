@@ -5,7 +5,7 @@
 @section('stylesheets')
 
   <link rel='stylesheet' type='text/css' href='css/parsley.css' media='all' />
-  <link rel='stylesheet' type='text/css' href='css/style.css' media='all' />
+  <link rel='stylesheet' type='text/css' href='css/shop.css' media='all' />
 
 @endsection
 

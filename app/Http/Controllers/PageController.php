@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-
+use App\Product;
+use App\Productsextended;
 use Log;
 
 class PageController extends Controller {
@@ -28,23 +29,23 @@ class PageController extends Controller {
     $activeBrands = [];
 
     //query database with validated request
-    $categories = DB::table('productsextended')->select('Department')
+    $categories = DB::table('productsextendeds')->select('Department')
                   // ->whereIn('brand' function($query) {
                   //     $query->select('brand')
                   // })
                   ->distinct()->get()->toArray();
 
     $products = DB::table('products')
-                ->join('productsextended', 'products.sku', '=', 'productsextended.sku')
-                ->select('products.*', 'productsextended.SingleUnit_Image_Url')
+                ->join('productsextendeds', 'products.sku', '=', 'productsextendeds.sku')
+                ->select('products.*', 'productsextendeds.SingleUnit_Image_Url')
                 ->where(function ($query) use ($request) {
                     if (count($request->categories) > 1) {
-                      $query->where('productsextended.Department', '=', $request->categories[0]);
+                      $query->where('productsextendeds.Department', '=', $request->categories[0]);
                       foreach (array_slice($request->categories,1) as $category) {
-                        $query->orWhere('productsextended.Department', '=', $category);
+                        $query->orWhere('productsextendeds.Department', '=', $category);
                       }
                     } else if (count($request->categories) == 1)  {
-                      $query->where('productsextended.Department', '=', $request->categories[0]);
+                      $query->where('productsextendeds.Department', '=', $request->categories[0]);
                     }
                 })
                 ->orderBy('products.sku')->paginate(15);
@@ -70,8 +71,8 @@ class PageController extends Controller {
   }
 
   public function getProduct($sku) {
-      $product = Product::find($sku);
-      $productExtended = ProductExtended::find($sku);
+      $product = Product::where('sku', $sku)->first();
+      $productExtended = Productsextended::where('sku', $sku)->first();
       return view('products.show')->with('product', $product)->with('productext', $productExtended);
   }
 }

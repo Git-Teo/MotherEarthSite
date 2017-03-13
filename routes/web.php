@@ -19,5 +19,3 @@ Route::get('contacts' , 'PageController@getContacts');
 Route::get('products/{sku}', 'PageController@getProduct');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');

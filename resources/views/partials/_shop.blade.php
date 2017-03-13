@@ -104,22 +104,24 @@
   </div>
   <div class="col-xs-9">
     <!-- Products -->
-    @foreach ($products->chunk(3) as $products3)
+    @foreach ($products->chunk(3) as $productschunk)
       <div class="row">
-        @foreach ($products3 as $product)
-          <div class="col-xs-6 col-sm-6 col-md-4">
-            <div class="thumbnail">
-              <img src="{{$product->SingleUnit_Image_Url != "" ? $product->SingleUnit_Image_Url : "images/no_image_available.jpeg"}}" alt="Sorry could not find image" style="max-height: 250px">
-              <div class="caption">
-                <h4>{{$product->description}}</h4>
-                <p>by {{$product->brand}}</p>
-                <div class="clearfix">
-                  <div class="pull-left price">£{{$product->msrp}}</div>
-                  <p><a class="btn btn-default pull-right" role="button">Add to Basket</a></p>
+        @foreach ($productschunk as $product)
+          <a href="/products/{{$product->sku}}"> 
+            <div class="col-xs-6 col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <img src="{{$product->SingleUnit_Image_Url != "" ? $product->SingleUnit_Image_Url : "images/no_image_available.jpeg"}}" alt="Sorry could not find image" style="max-height: 250px">
+                <div class="caption">
+                  <h4>{{$product->description}}</h4>
+                  <p>by {{$product->brand}}</p>
+                  <div class="clearfix">
+                    <div class="pull-left price">£{{$product->msrp}}</div>
+                    <p><a class="btn btn-default pull-right" role="button">Add to Basket</a></p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </a>
         @endforeach
       </div>
     @endforeach
