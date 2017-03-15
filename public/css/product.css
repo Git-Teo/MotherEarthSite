@@ -1,3 +1,46 @@
 body {
-  background: black;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+.pro-content {
+  padding: 20px;
+  border: 2px solid #EEE;
+  box-shadow: 3px 3px 5px #888;
+}
+
+.pro-image {
+  padding: 5px;
+  float: right;
+  margin-left: 20px;
+  border: 1px solid #CCC;
+  box-shadow: 1px 2px 1px #888;
+}
+
+.pro-head {
+  margin-bottom: 20px;
+}
+
+.pro-add {
+  
+}
+.pro-head::after {
+  position: absolute;
+  content: "";
+  height: 2px;
+  width: 90%;
+  border-bottom: 1px solid #CCC;
+}
+
+.pro-descr {
+  padding: 15px 20px 20px 0px;
+}
+
+.pro-title {
+  font-size: 35px;
+}
+
+.pro-brand {
+  font-size: 25px;
+  color: #663096;
 }

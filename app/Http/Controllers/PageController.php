@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+
+use App\Soap\CLFSoapClient;
+use App\Http\Controllers\SoapController;
+use Artisaninweb\SoapWrapper\SoapWrapper;
+
 use App\Product;
 use App\Productsextended;
 use Log;
@@ -71,8 +76,11 @@ class PageController extends Controller {
   }
 
   public function getProduct($sku) {
+      $sw = new SoapWrapper;
+      $sc = new SoapController($sw);
+      $proattr = $sc->getProductAttribute($sku);
       $product = Product::where('sku', $sku)->first();
       $productExtended = Productsextended::where('sku', $sku)->first();
-      return view('products.show')->with('product', $product)->with('productext', $productExtended);
+      return view('products.show')->with('product', $product)->with('productext', $productExtended)->with('proattr', $proattr);
   }
 }

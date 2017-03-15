@@ -83,4 +83,14 @@ class SoapController
       $data=$root->getElementsByTagName('productAttribute');
       return $data;
   }
+
+  public function getProductAttribute($sku) {
+    $dom=new DOMDocument();
+    $pc = ['productCodesXml' => '<ProductCodes><Code>'.$sku.'</Code></ProductCodes>'];
+    $sc_res = $this->soapWrapper->call('CLF.GetProductAttributes', array($this->soapHeader), $pc);
+    $dom->loadXML($sc_res->GetProductAttributesResult);
+    $root=$dom->documentElement;
+    $data=$root->getElementsByTagName('ProductAttribute')->item(0);
+    return $data;
+  }
 }
