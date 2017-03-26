@@ -107,7 +107,7 @@
     @foreach ($products->chunk(3) as $productschunk)
       <div class="row">
         @foreach ($productschunk as $product)
-          <a href="/products/{{$product->sku}}"> 
+          <a href="/products/{{$product->sku}}">
             <div class="col-xs-6 col-sm-6 col-md-4">
               <div class="thumbnail">
                 <img src="{{$product->SingleUnit_Image_Url != "" ? $product->SingleUnit_Image_Url : "images/no_image_available.jpeg"}}" alt="Sorry could not find image" style="max-height: 250px">
@@ -116,7 +116,7 @@
                   <p>by {{$product->brand}}</p>
                   <div class="clearfix">
                     <div class="pull-left price">£{{$product->msrp}}</div>
-                    <p><a class="btn btn-default pull-right" role="button">Add to Basket</a></p>
+                    <p><a href={{ route('addToBasket', ['sku' => $product->sku]) }} class="btn btn-default pull-right" role="button">Add to Basket</a></p>
                   </div>
                 </div>
               </div>

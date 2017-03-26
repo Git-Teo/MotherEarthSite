@@ -19,5 +19,7 @@ elixir((mix) => {
 });
 
 elixir((mix) => {
-    mix.sass('product.scss');
+    mix.sass('product.sass');
+    mix.sass('basket.sass');
+    mix.sass('shop.sass');
 });

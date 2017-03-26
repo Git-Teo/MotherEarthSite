@@ -21,47 +21,63 @@
         </div>
         <div class="col-md-8">
           <div class="pro-head">
-            <span class="pro-title">
+            <span class="title">
               {{$product->description}}</br>
             </span>
-            <span class="pro-brand">
+            <span class="brand">
               {{$product->brand}}
             </span>
-            <div class="pro-descr">
+            <div class="desc">
               {{str_replace(".",".".PHP_EOL, $productext->Long_Description)}}
             </div>
           </div>
+          <div class="separator"></div>
           <div class="pro-add">
-            £{{$product->msrp}}</br>
-            masterpackquantity:
+            <span class="price">£{{$product->msrp}}</span></br>
+            <!--masterpackquantity:
             {{$product->masterpackquantity}}</br>
             minimumorderquantity:
-            {{$product->minimumorderquantity}}</br>
-            <input type="number" name="quantity" class="add-qty" value="{{$product->minimumorderquantity}}" step="{{$product->minimumorderquantity}}">
-            <input type="button" class="add-btn">
+            {{$product->minimumorderquantity}}</br> -->
+            <span class="text">Quantity</span><button name="less" class="less" title="Reduce Quantity"></button>
+            <input type="number" name="quantity" id="qty" class="qty" value="{{$product->minimumorderquantity}}" step="{{$product->minimumorderquantity}}" min="{{$product->minimumorderquantity}}">
+            <button name="more" class="more" title="Increase Quantity"></button>
+            <button class="add-btn" title="Add to Basket">Add</button></br>
+            <span class="help">Choose how many you would like and then click add.</span>
           </div>
+          <div class="separator"></div>
           <div class="pro-details">
-            Size:
+            <div class="title">Information</div>
+            <div class="subtitle">Size:</div>
             {{$product->size}}</br>
-            Weight:
+            <div class="subtitle">Weight:</div>
             {{$product->weight}}</br>
-            Department:
+            <div class="subtitle">Department:</div>
             {{$productext->Department}}</br>
-            Storage:
+            <div class="subtitle">Storage:</div>
             {{$productext->Storage}}</br>
-            Guaranteed Life:
+            <div class="subtitle">Guaranteed Life:</div>
             {{$productext->Guaranteed_Shelf_Life}}</br>
-            Average Life:
+            <div class="subtitle">Average Life:</div>
             {{$productext->Shelf_Life}}</br>
           </div>
+          <div class="separator"></div>
           <div class="pro-attributes">
+            <div class="title">Dietary and Lifestyle </div>
             @foreach ($proattr->childNodes as $attr)
-              {{str_replace(array("#text", "_"), array("", " "), $attr->nodeName)}}
-              {{$attr->nodeValue}}</br>
+              @if ($attr->nodeValue == "False" || $attr->nodeValue == "True")
+                <div class="att-{{$attr->nodeValue}}"></div>
+                <span class="text-{{$attr->nodeValue}}">{{str_replace(array("#text", "_"), array("", " "), $attr->nodeName)}}</span></br>
+              @endif
             @endforeach
           </div>
         </div>
       </div>
     </div>
   </div>
+@endsection
+
+@section('scripts')
+
+  <script src="../js/productpage.js"></script>
+
 @endsection

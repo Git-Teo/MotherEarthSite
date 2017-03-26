@@ -70,17 +70,4 @@ class PageController extends Controller {
   public function getContacts() {
     return view('pages.contacts');
   }
-
-  public function getBasket() {
-    return view('pages.basket');
-  }
-
-  public function getProduct($sku) {
-      $sw = new SoapWrapper;
-      $sc = new SoapController($sw);
-      $proattr = $sc->getProductAttribute($sku);
-      $product = Product::where('sku', $sku)->first();
-      $productExtended = Productsextended::where('sku', $sku)->first();
-      return view('products.show')->with('product', $product)->with('productext', $productExtended)->with('proattr', $proattr);
-  }
 }

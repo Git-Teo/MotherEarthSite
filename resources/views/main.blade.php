@@ -5,11 +5,6 @@
     @include('partials._head')
     @include('partials._javascript')
 
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
   </head>
   <body>
 

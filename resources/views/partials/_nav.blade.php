@@ -17,11 +17,11 @@
       <ul class="nav navbar-nav">
         <li class="{{ Request::is('/') ? "active" : ""}}"><a href="{{ Request::is('/') ? "#" : "/"}}">Home</a></li>
         <li class="{{ Request::is('store') ? "active" : ""}}"><a href="{{ Request::is('store') ? "#" : "/store"}}">Store</a></li><li>
-        <li class="{{ Request::is('about') ? "active" : ""}}"><a href="{{ Request::is('about') ? "#" : "/about"}}">About Us</a></li><li>
-        <li class="{{ Request::is('contacts') ? "active" : ""}}"><a href="{{ Request::is('contacts') ? "#" : "/contacts"}}">Contacts</a></li>
+        <li class="{{ Request::is('about') ? "active" : ""}}"><a href="{{ Request::is('about') ? "#" : "/about"}}">About us</a></li><li>
+        <li class="{{ Request::is('contacts') ? "active" : ""}}"><a href="{{ Request::is('contacts') ? "#" : "/contacts"}}">Contact us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="{{ Request::is('basket') ? "active" : ""}}"><a href="basket"><span class="glyphicon glyphicon-shopping-cart"></span> Basket</a></li>
+        <li class="{{ Request::is('basket') ? "active" : ""}}"><a href="{{ Request::is('/basket') ? "#" : "/basket" }}"><span class="glyphicon glyphicon-shopping-cart"></span> Basket</a></li>
 
         @if (Auth::guest())
             <li><a href="{{ url('/login') }}">Login</a></li>
