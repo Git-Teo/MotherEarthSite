@@ -27,7 +27,11 @@ class ProductController extends Controller
     }
 
     public function getAddToBasket(Request $request, $sku) {
-        $product = Product::where('sku', $sku)->first();
+        $product = DB::table('products')
+                    ->join('productsextendeds', 'products.sku', '=', 'productsextendeds.sku')
+                    ->select('products.*', 'productsextendeds.SingleUnit_Image_Url')
+                    ->where('products.sku', '=', ''.$sku)
+                    ->first();
         $oldBasket = Session::has('basket') ? Session::get('basket') : null;
         $basket = new Basket($oldBasket);
         $basket->add($product, $product->sku);

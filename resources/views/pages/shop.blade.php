@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    {{var_dump($test)}}
+
     @include('partials._shop')
 
 @endsection

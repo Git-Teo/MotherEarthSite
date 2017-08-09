@@ -41,7 +41,7 @@
             <span class="text">Quantity</span><button name="less" class="less" title="Reduce Quantity"></button>
             <input type="number" name="quantity" id="qty" class="qty" value="{{$product->minimumorderquantity}}" step="{{$product->minimumorderquantity}}" min="{{$product->minimumorderquantity}}">
             <button name="more" class="more" title="Increase Quantity"></button>
-            <button class="add-btn" title="Add to Basket">Add</button></br>
+            <a href="../add-to-basket/{{$product->sku}}" class="add-btn" title="Add to Basket">Add</a></br>
             <span class="help">Choose how many you would like and then click add.</span>
           </div>
           <div class="separator"></div>

@@ -21,4 +21,5 @@ Route::get('/products/{sku}', 'ProductController@getProduct');
 
 //Other Pages
 Route::get('/', 'PageController@getIndex')->name('index');
+Route::get('/shop', 'PageController@getShop')->name('shop');
 Route::get('/contacts' , 'PageController@getContacts')->name('contacts');

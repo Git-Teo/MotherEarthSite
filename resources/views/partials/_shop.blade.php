@@ -9,12 +9,26 @@
     <div class="dropdown">
       Sort By:
       <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        sorted by
+        @if (Request::input('sortby'))
+          @if (Request::input('sortby') == 'pricelh')
+            Price: Low to High
+          @elseif (Request::input('sortby') == 'pricehl')
+            Price: High to Low
+          @elseif (Request::input('sortby') == 'relevance')
+            Relevance
+          @elseif (Request::input('sortby') == 'brand')
+            Brand
+          @endif
+        @else
+          Relevance
+        @endif
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li class="active"><a href="#">Price: Low to High</a></li>
-        <li><a href="#">Price: High to Low</a></li>
+        <li>{{ Form::radio('sortby', 'relevance', Request::input('sortby') ? Request::input('sortby') == 'relevance' ? true : false : true, array('onChange' => 'submitFormNoRange()')) }}Relevance</li>
+        <li>{{ Form::radio('sortby', 'pricelh', Request::input('sortby') == 'pricelh' ? true : false, array('onChange' => 'submitFormNoRange()')) }}Price: Low to High</li>
+        <li>{{ Form::radio('sortby', 'pricehl', Request::input('sortby') == 'pricehl' ? true : false, array('onChange' => 'submitFormNoRange()')) }}Price: High to Low</li>
+        <li>{{ Form::radio('sortby', 'brand', Request::input('sortby') == 'brand' ? true : false, array('onChange' => 'submitFormNoRange()')) }}Brand</li>
       </ul>
     </div>
   </div>

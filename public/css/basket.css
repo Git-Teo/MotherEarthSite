@@ -84,4 +84,10 @@ button {
   outline: none;
 }
 
+@media (max-width: 440px) {
+  .pro-image {
+    max-width: 80px;
+  }
+}
+
 /*# sourceMappingURL=basket.css.map */

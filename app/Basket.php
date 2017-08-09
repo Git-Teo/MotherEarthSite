@@ -11,9 +11,9 @@ class Basket
 
     public function __construct($oldBasket) {
         if ($oldBasket) {
-            $this->products = $oldBasket ->products;
-            $this->totalQty = $oldBasket ->totalQty;
-            $this->totalPrice = $oldBasket ->totalPrice;
+            $this->products = $oldBasket->products;
+            $this->totalQty = $oldBasket->totalQty;
+            $this->totalPrice = $oldBasket->totalPrice;
         }
     }
 
@@ -26,7 +26,7 @@ class Basket
         }
         $storedProducts['qty'] += $qty;
         $storedProducts['price'] = $product->msrp * $storedProducts['qty'];
-        $this->products = $storedProducts;
+        $this->products[$sku] = $storedProducts;
         $this->totalQty += $qty;
         $this->totalPrice += $product->msrp * $qty;
 

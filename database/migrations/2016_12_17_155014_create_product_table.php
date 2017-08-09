@@ -25,6 +25,8 @@ class CreateProductTable extends Migration
             $table->decimal('price', 10, 2)->nullable();
             $table->decimal('msrp', 10, 2)->nullable();
             $table->integer('minimumorderquantity')->nullable();
+            $table->boolean('visible')->default(true);
+            $table->integer('purchases')->default(0)->nullable();
             $table->primary('sku');
         });
     }

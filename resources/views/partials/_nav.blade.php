@@ -16,7 +16,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
       <ul class="nav navbar-nav">
         <li class="{{ Request::is('/') ? "active" : ""}}"><a href="{{ Request::is('/') ? "#" : "/"}}">Home</a></li>
-        <li class="{{ Request::is('store') ? "active" : ""}}"><a href="{{ Request::is('store') ? "#" : "/store"}}">Store</a></li><li>
+        <li class="{{ Request::is('shop') ? "active" : ""}}"><a href="{{ Request::is('shop') ? "#" : "/shop"}}">Shop</a></li><li>
         <li class="{{ Request::is('about') ? "active" : ""}}"><a href="{{ Request::is('about') ? "#" : "/about"}}">About us</a></li><li>
         <li class="{{ Request::is('contacts') ? "active" : ""}}"><a href="{{ Request::is('contacts') ? "#" : "/contacts"}}">Contact us</a></li>
       </ul>
