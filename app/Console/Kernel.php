@@ -2,8 +2,13 @@
 
 namespace App\Console;
 
+use DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Soap\CLFSoapClient;
+use App\Http\Controllers\SoapController;
+use Artisaninweb\SoapWrapper\SoapWrapper;
+use DOMDocument;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +29,34 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+
+            $sw = new SoapWrapper;
+            $sc = new SoapController($sw);
+            $dom=new DOMDocument();
+
+            $updatedskusxml = $sc->getProductCodes();
+            $dom->loadXML($updatedskusxml);
+            $root=$dom->documentElement;
+            $data=$root->getElementsByTagName('Code');
+            $updatedskus = [];
+
+            foreach ($data as $child) {
+                array_push($updatedskus, $child->getElementsByTagName('sku')->item(0)->textContent);
+            }
+
+            $currentskus = [];
+            $skus = DB::select('select sku from products');
+
+            foreach ($skus as $sku) {
+                array_push($currentskus, $sku->sku);
+            }
+            
+            $newskus = array_diff($updatedskus, $currentskus);
+
+
+
+        })->hourly();
     }
 
     /**

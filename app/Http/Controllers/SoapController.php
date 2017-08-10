@@ -54,9 +54,13 @@ class SoapController
     return $this->soapWrapper->call('CLF.GetProductCodes', array($this->soapHeader))->GetProductCodesResult;
   }
 
-  public function getProducts() {
+  public function getProducts($pc = null) {
       $dom=new DOMDocument();
-      $pc = ['productCodesXml' => $this->getProductCodes()];
+      if (!$pc) {
+        $pc = ['productCodesXml' => $this->getProductCodes()];
+      } else {
+        $pc = ['productCodesXml' => $pc];
+      }
       $sc_res = $this->soapWrapper->call('CLF.GetProductData', array($this->soapHeader), $pc);
       $dom->loadXML($sc_res->GetProductDataResult);
       $root=$dom->documentElement;
@@ -64,9 +68,13 @@ class SoapController
       return $data;
   }
 
-  public function getProductsExtended() {
+  public function getProductsExtended($pc = null) {
       $dom=new DOMDocument();
-      $pc = ['productCodesXml' => $this->getProductCodes()];
+      if (!$pc) {
+        $pc = ['productCodesXml' => $this->getProductCodes()];
+      } else {
+        $pc = ['productCodesXml' => $pc];
+      }
       $sc_res = $this->soapWrapper->call('CLF.GetProductExtendedData', array($this->soapHeader), $pc);
       $dom->loadXML($sc_res->GetProductExtendedDataResult);
       $root=$dom->documentElement;
