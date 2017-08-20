@@ -115,6 +115,33 @@
       </div>
     </div>
     <hr>
+
+    <div class="form-group" id="GeneralAndDietary">
+      {{ Form::label('attr[]', 'General And Dietary') }}
+      @foreach ($attributes as $attribute)
+      <div class="checkbox">
+        <label>
+          {{ Form::checkbox('attr[]', $attribute, in_array($attribute, $activeAttributes) ? true : false, array('onChange' => 'submitMainForm()')) }}
+          {{ $attribute }}
+        </label>
+      </div>
+      @endforeach
+    </div>
+    <hr>
+
+    <div class="form-group" id="Allergens">
+      {{ Form::label('allergens[]', 'Allergens') }}
+      @foreach ($allergens as $allergen)
+      <div class="checkbox">
+        <label>
+          {{ Form::checkbox('allergens[]', $allergen, in_array($allergen, $activeAllergens) ? true : false, array('onChange' => 'submitMainForm()')) }}
+          {{ $allergen }}
+        </label>
+      </div>
+      @endforeach
+    </div>
+    <hr>
+
   </div>
   <div class="col-xs-9">
     <!-- Products -->
@@ -124,7 +151,7 @@
           <a href="/products/{{$product->sku}}">
             <div class="col-xs-6 col-sm-6 col-md-4">
               <div class="thumbnail">
-                <img src="{{$product->SingleUnit_Image_Url != "" ? $product->SingleUnit_Image_Url : "images/no_image_available.jpeg"}}" alt="Sorry could not find image" style="max-height: 250px">
+                <img src="{{$product->SingleUnit_Image_Url != "" ? $product->SingleUnit_Image_Url : "images/no_image_available.jpeg"}}" alt="Oops, the image could not be found" style="max-height: 250px">
                 <div class="caption">
                   <h4>{{$product->description}}</h4>
                   <p>by {{$product->brand}}</p>

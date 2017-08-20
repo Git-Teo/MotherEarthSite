@@ -21,15 +21,15 @@ class ProductController extends Controller
         $sw = new SoapWrapper;
         $sc = new SoapController($sw);
         $proattr = $sc->getProductAttribute($sku);
-        $product = Product::where('sku', $sku)->first();
-        $productExtended = Productsextended::where('sku', $sku)->first();
+        $product = DB::table('products')->where('sku', $sku)->first();
+        $productExtended = DB::table('productsextended')->where('sku', $sku)->first();
         return view('products.show')->with('product', $product)->with('productext', $productExtended)->with('proattr', $proattr);
     }
 
     public function getAddToBasket(Request $request, $sku) {
         $product = DB::table('products')
-                    ->join('productsextendeds', 'products.sku', '=', 'productsextendeds.sku')
-                    ->select('products.*', 'productsextendeds.SingleUnit_Image_Url')
+                    ->join('productsextended', 'products.sku', '=', 'productsextended.sku')
+                    ->select('products.*', 'productsextended.SingleUnit_Image_Url')
                     ->where('products.sku', '=', ''.$sku)
                     ->first();
         $oldBasket = Session::has('basket') ? Session::get('basket') : null;

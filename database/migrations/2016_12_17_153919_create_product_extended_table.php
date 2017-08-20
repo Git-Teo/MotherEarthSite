@@ -13,7 +13,7 @@ class CreateProductExtendedTable extends Migration
      */
     public function up()
     {
-        Schema::create('productsExtended', function (Blueprint $table) {
+        Schema::create('productsextended', function (Blueprint $table) {
             $table->string('sku', 20);
             $table->text('Long_Description')->nullable();
             $table->text('Web_Description')->nullable();
@@ -41,6 +41,6 @@ class CreateProductExtendedTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('productsExtended');
+        Schema::dropIfExists('productsextended');
     }
 }

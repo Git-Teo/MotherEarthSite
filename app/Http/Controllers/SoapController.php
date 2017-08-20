@@ -82,13 +82,17 @@ class SoapController
       return $data;
   }
 
-  public function getProductAttributes() {
+  public function getProductAttributes($pc = null) {
       $dom=new DOMDocument();
-      $pc = ['productCodesXml' => $this->getProductCodes()];
+      if (!$pc) {
+        $pc = ['productCodesXml' => $this->getProductCodes()];
+      } else {
+        $pc = ['productCodesXml' => $pc];
+      }
       $sc_res = $this->soapWrapper->call('CLF.GetProductAttributes', array($this->soapHeader), $pc);
       $dom->loadXML($sc_res->GetProductAttributesResult);
       $root=$dom->documentElement;
-      $data=$root->getElementsByTagName('productAttribute');
+      $data=$root->getElementsByTagName('ProductAttribute');
       return $data;
   }
 
