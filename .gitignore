@@ -7,4 +7,5 @@ Homestead.json
 Homestead.yaml
 OpenDosHere.cmd
 ServeSite.cmd
+app/Http/Controllers/SoapController.php
 .env
