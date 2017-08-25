@@ -26,7 +26,7 @@ class PageController extends Controller {
         'priceFrom' => 'regex:/^\d*(\x{002E}\d{0,2})?$/',
         'priceTo' => 'regex:/^\d*(\x{002E}\d{0,2})?$/',
         'price' => 'regex:/^\d{0,2}(\x{005F}\d{0,2})?$/',
-        'brands[]' => 'regex:/^[a-zA-Z\d\s]+$/',
+        'brand' => 'regex:/^[a-zA-Z\d\s]+$/',
         'categories[]' => 'regex:/^[a-zA-Z\d\s]+$/|max:50',
         'attr[]' => 'regex:/^[a-zA-Z\d\s]+$/|max:25',
         'allergens[]' => 'regex:/^[a-zA-Z\d\s]+$/|max:25',
@@ -38,12 +38,15 @@ class PageController extends Controller {
 
     $activeCategs = $request->categories;
     $activeCategs = is_array($activeCategs) ? $activeCategs : array($activeCategs);
+    $activeCategs = array_filter($activeCategs);
 
     $activeAttributes = $request->attr;
     $activeAttributes = is_array($activeAttributes) ? $activeAttributes : array($activeAttributes);
+    $activeAttributes = array_filter($activeAttributes);
 
     $activeAllergens = $request->allergens;
     $activeAllergens = is_array($activeAllergens) ? $activeAllergens : array($activeAllergens);
+    $activeAllergens = array_filter($activeAllergens);
 
     //keywords handling
     $GLOBALS['keywords'] = explode(" ", $request->keywords);
@@ -67,8 +70,15 @@ class PageController extends Controller {
       $request->priceTo = count(explode("_", $request->price)) > 1 ? (float)explode("_", $request->price)[1] : 10000;
     }
 
-    $brands = [];
-    $activeBrands = [];
+    $brandsres = $categories = DB::table('products')->select('brand')
+                  ->distinct()->get()->toArray();
+    $brands = array();
+    $brands['Select a Brand'] = 'Select a Brand';
+    foreach ($brandsres as $brand) {
+      $brands[$brand->brand] = $brand->brand;
+    }
+
+    $activeBrand = $request->brand;
     //error outputs
 
     //query database with validated request
@@ -177,7 +187,7 @@ class PageController extends Controller {
     //                   ->toSql();
 
     return view('pages.welcome', ['test' => $test, 'products' => $products, 'categories' => $categories,
-    'activeCategs' => $activeCategs, 'brands' => $brands, 'activeBrands' => $activeBrands, 'attributes' => $attributes,
+    'activeCategs' => $activeCategs, 'brands' => $brands, 'activeBrand' => $activeBrand, 'attributes' => $attributes,
     'activeAttributes' => $activeAttributes, 'allergens' => $allergens, 'activeAllergens' => $activeAllergens, 'pros' => $products->appends(Input::except('page'))]);
   }
 

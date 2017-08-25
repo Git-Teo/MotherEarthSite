@@ -1,7 +1,3 @@
-
-// $( "form.mainForm" ).submit(function(e) {
-// });
-
 function submitMainForm() {
   if (!validatePrice($('#PriceFrom').val()) && !validatePrice($('#PriceTo').val())) {
     $('#PriceFrom, #PriceTo').val('');
@@ -21,6 +17,16 @@ function submitFormNoRange() {
   $('.mainForm').submit();
 }
 
+function submitEmptyForm() {
+  window.location = window.location.href.split("?")[0];
+}
+
+$('.removeFilter').on('click', function () {
+  //console.log("input[value="'+$(this).attr('id')+'"]:checked");
+  $("input[value='"+$(this).attr('id')+"']:checked").prop('checked', false);
+  submitMainForm();
+});
+
 function validatePrice(v) {
   var priceRegex = /^\d*(\u002E\d{0,2})?$/;
   return priceRegex.test(v);
@@ -39,6 +45,7 @@ $('#priceSubmit').on('click', function () {
     submitMainForm();
   }
 });
+
 
 //
 // $('#priceSubmit').on('click', function () {

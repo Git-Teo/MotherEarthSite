@@ -40,6 +40,76 @@
 <div class="row">
   <div class="col-md-2 filters">
 
+    @if (!empty($activeAttributes) or !empty($activeAllergens) or !empty($activeCategs) or !empty($activeBrands))
+    <div class="form-group" id="ActiveFilters">
+    <h3>Active Filters</h3>
+    {{ Form::button('Clear all filters', array('id' => 'clear', 'onClick' => 'submitEmptyForm()'))}}
+    <br>
+
+      @if (!empty($activeCategs))
+        {{ Form::label('Categories') }}
+        @foreach ($activeCategs as $att)
+        <div class="checkbox">
+          <label>
+            {{ Form::button('x', array('id' => $att, 'class' => 'removeFilter')) }}
+            {{ $att }}
+          </label>
+        </div>
+        @endforeach
+        </br>
+      @endif
+
+      {{-- @if (!empty($activeAttributes))
+        {{ Form::label('General and Dietary') }}
+        @foreach ($activeAttributes as $att)
+        <div class="checkbox">
+          <label>
+            {{ Form::checkbox('active[]', $att, true, array('onChange' => 'submitMainForm()')) }}
+            {{ $att }}
+          </label>
+        </div>
+        @endforeach
+        </br>
+      @endif --}}
+
+      @if (!empty($activeAttributes))
+        {{ Form::label('General and Dietary') }}
+        @foreach ($activeAttributes as $att)
+          <div class="checkbox">
+            <label>
+              {{ Form::checkbox('active[]', $att, true, array('onChange' => 'submitMainForm()')) }}
+              {{ $att }}
+            </label>
+          </div>
+        @endforeach
+        </br>
+      @endif
+
+      @if (!empty($activeAllergens))
+        {{ Form::label('Allergens') }}
+        @foreach ($activeAllergens as $att)
+        <div class="checkbox">
+          <label>
+            {{ Form::checkbox('active[]', $att, true, array('onChange' => 'submitMainForm()')) }}
+            {{ $att }}
+          </label>
+        </div>
+        @endforeach
+        </br>
+      @endif
+
+    </div>
+    <hr>
+    @endif
+
+    {{-- Brand Filter --}}
+    <div class="ui-widget">
+      {{ Form::label('Brands') }}
+      {{ Form::select('Brands', $brands, 'Select a Brand', array('id' => 'combobox')) }}
+    </div>
+    <hr>
+
+    {{-- Category Filter --}}
     @if (!empty($categories))
     <div class="form-group" id="CategoriesGrp">
       {{ Form::label('categories[]', 'Categories') }}
@@ -55,7 +125,8 @@
     <hr>
     @endif
 
-    @if (!empty($brands))
+    {{-- Brand Filter --}}
+    {{-- @if (!empty($brands))
     <div class="form-group" id="FeaturedBrands">
       {{ Form::label('featuredBrands', 'Featured Brands') }}
       @foreach ($brands as $brand)
@@ -68,7 +139,7 @@
       @endforeach
     </div>
     <hr>
-    @endif
+    @endif --}}
 
     <div class="form-group" id="PriceRangeGrp">
       {{ Form::label('price', 'Price') }}
